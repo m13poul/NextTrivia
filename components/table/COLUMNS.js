@@ -10,6 +10,10 @@ export const COLUMNS = [
     {
         Header: 'Difficulty',
         accessor: 'difficulty'
+    },
+    {
+        Header: 'Completed at',
+        accessor: 'timestamp'
     }
 
 ]

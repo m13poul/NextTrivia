@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import MongoClientPromise from "../../lib/mongodb";
+const { Temporal, Intl, toTemporalInstant } = require('@js-temporal/polyfill');
 
 import { getSession } from "next-auth/react"
 
@@ -16,7 +17,7 @@ export default async function handler(req, res) {
       email: session.user.email
     },{
       $push:{
-        games: data
+        games: {...data, timestamp: Temporal.Now.zonedDateTimeISO().toLocaleString()}
       }
     },{
       upsert: true
