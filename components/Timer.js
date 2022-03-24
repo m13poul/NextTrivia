@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { QuizContext } from "../contexts/quiz";
+import { PureComponent } from "react/cjs/react.development";
 
 const Timer = () => {
     const [quizState, dispatch] = useContext(QuizContext);
@@ -7,6 +8,9 @@ const Timer = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setTimer(prev => prev - 1)
+            // if (timer === 0) {
+            //     dispatch({type: 'TIME_OUT'})
+            // }
         }, 1000);
     }, []);
     function timerFormater(num){

@@ -8,41 +8,34 @@ const Initializer = ({ categories }) => {
   const [quizState, dispatch] = useContext(QuizContext);
 
   const router = useRouter();
-  console.log(quizState.questions);
+  console.log(quizState);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(id)
-    if (
-      !quizState.category ||
-      !quizState.numberOfQuestions ||
-      !quizState.difficulty
-    ) {
-      console.log("Something went wrong");
-    } else {
       const questions = await getQuestions(
         quizState.category,
         quizState.numberOfQuestions,
         quizState.difficulty
       );
+
       dispatch({ type: "SET_QUESTIONS", payload: questions });
-      // console.log(questions)
+      console.log(questions);
+
       const answers = shuffleAnswers(questions[0]);
+
       dispatch({ type: "SET_ANSWERS", payload: answers });
-      // dispatch({type: 'SET_TIMER', payload: questions.length})
-      // console.log(answers)
-      const url = quizState.category.replace(/[^a-z0-9]/gim, " ").replace(/\s+/g, " ").replace(/\ /g, "-").replace(/[0-9]/g, "");
-      console.log(url);
-      // console.log(quizState);
-      console.log(answers);
-
-      // router.push(`/category/${url}`)
-      router.push(`/?amount=${quizState.numberOfQuestions}&categogy=${url.toLowerCase()}&difficulty=${quizState.difficulty}`, undefined, { shallow: true })
-
-    }
+      console.log("answers", answers);
+      const url = quizState.category
+        .replace(/[^a-z0-9]/gim, " ")
+        .replace(/\s+/g, " ")
+        .replace(/\ /g, "-")
+        .replace(/[0-9]/g, "");
+      router.push( `/?amount=${ quizState.numberOfQuestions }&categogy=${url.toLowerCase()}&difficulty=${quizState.difficulty}`, undefined, { shallow: true } );
   };
   return (
     <div>
-      <h2 className="text-2xl font-bold ">Let&apos;s initialize the settings</h2>
+      <h2 className="text-2xl font-bold ">
+        Let&apos;s initialize the settings
+      </h2>
       <div className=" w-full">
         <div className="grid grid-cols-1 gap-6">
           <label className="block">
@@ -70,9 +63,6 @@ const Initializer = ({ categories }) => {
                     border-0 border-b-2 border-gray-200
                     focus:ring-0 focus:border-black
                   "
-              // value={category}
-              // onChange={(e) => setCategory(e.target.value)}
-              // onChange={(e) => handleSubmit(e.target.value)}
               onChange={(e) =>
                 dispatch({ type: "SET_CATEGORY", payload: e.target.value })
               }

@@ -1,13 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import { exportPDF, exportData } from "../helpers";
 import { useSession, signOut } from "next-auth/react";
+import { MdDownload } from "react-icons/md";
+import { IconContext } from "react-icons";
+
+import { motion } from "framer-motion"
 
 function ProfileCard({ games }) {
   const { data: session, status } = useSession();
 
   return (
     <div>
-      <div className="w-full overflow">
+      <div className="w-full overflow text-gray-700">
         <img
           src={session.user.image}
           alt="pic"
@@ -20,28 +24,43 @@ function ProfileCard({ games }) {
         </p>
         {games !== 0 ? (
           <>
-            <button
-              className="p-2 mb-2 bg-orange-500"
-              onClick={() => exportPDF(games)}
+            <motion.div className="flex gap-2 items-center justify-center"
+            whileHover={{ scale: 1.1 }}
+            onClick={() => exportPDF(games)}
             >
-              Download as PDF
-            </button>{" "}
+              <button
+                className="p-2 bg-orange-500 rounded-md"
+              >
+                Download as PDF
+              </button>{" "}
+              <button>
+                <MdDownload  />
+              </button>
+            </motion.div>
             <br />
-            <button
-              className="p-2 mb-2 bg-orange-500"
-              onClick={() => exportData(games)}
+            <motion.div className="flex gap-2 items-center justify-center"
+            whileHover={{ scale: 1.1 }}
+            onClick={() => exportData(games)}
             >
-              Export Data
-            </button>
+              <button
+                className="p-2 mb-2 bg-orange-500 rounded-md"
+              >
+                Export Data
+              </button>
+              <button>
+                <MdDownload />
+              </button>
+            </motion.div>
           </>
         ) : null}
 
-        <button
-          className=" bg-orange-500 p-2 md:w-full lg:mr-4"
+        <motion.button
+          className=" bg-orange-500 p-2 md:w-full lg:mr-4 rounded-md"
           onClick={() => signOut()}
+          whileHover={{ scale: 1.1 }}
         >
           Sign Out
-        </button>
+        </motion.button>
       </div>
     </div>
   );

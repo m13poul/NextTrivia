@@ -1,6 +1,4 @@
 import { createContext, useReducer } from "react";
-// import { questions } from '../questions'
-// import { shuffleAnswers } from '../helpers'
 import { shuffleAnswers } from "../helpers";
 
 
@@ -15,8 +13,8 @@ const initialState =  {
     category: 'General-Knowledge',
     difficulty: 'easy',
     numberOfQuestions: 10,
-    timer: true,
-    showQuestions: false
+    // timer: true,
+    showQuestions: false,
 }
 
 // This is the reducer function.

@@ -7,12 +7,13 @@ const Convincer = () => {
   return (
     <div className="text-2xl">
       <div className=" ">
-        Setup the settings on the right and playing immediately! <br />
+        Setup the settings and playing immediately! <br />
         You can also Login via your GitHub account to enjoy more features like:
         <ul>
           <li>Save all your past games and your best score</li>
           <li>The time and date you played each game</li>
           <li>Export your games to PDF</li>
+          <li>Download your data in JSON</li>
         </ul>
       </div>
       {session ? (

@@ -8,14 +8,12 @@ export async function getCategories() {
 }
 
 export async function getQuestions(id, numberOfQuestions, difficulty) {
-  // console.log('fetching now ...', parseInt(id.replace(/\D+/g, '')), numberOfQuestions, difficulty)
   const category = id.replace(/\D+/g, "");
   const response = await fetch(
     `https://opentdb.com/api.php?amount=${numberOfQuestions}&category=${category}&difficulty=${difficulty}&type=multiple&&encode=url3986`
   );
   const results = await response.json();
-//   console.log(results);
-//   console.log(results.results);
+
 // https://stackoverflow.com/questions/54907549/keep-only-selected-keys-in-every-object-from-array
   const keys_to_keep = ['question', 'correct_answer', 'incorrect_answers']
   const redux = array => array.map(o => keys_to_keep.reduce((acc, curr) => {
@@ -52,8 +50,8 @@ export  const exportPDF = (games) => {
     const doc = new jsPDF(orientation, unit, size);
     doc.setFontSize(25);
     const title = "My Past Games";
-    const headers = [["category", "difficulty", "correctAnswerCount"]];
-    const data = games.map(elt=> [elt.category, elt.correctAnswerCount, elt.difficulty]);
+    const headers = [["Category", "Difficulty", "Correct Answers", "Completed at"]];
+    const data = games.map(elt=> [elt.category, elt.difficulty,elt.correctAnswerCount, elt.timestamp]);
     let content = {
       startY: 50,
       head: headers,

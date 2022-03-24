@@ -1,11 +1,16 @@
 /* eslint-disable react/jsx-key */
 
-import { MdChevronRight, MdChevronLeft, MdLastPage, MdFirstPage } from "react-icons/md";
+import {
+  MdChevronRight,
+  MdChevronLeft,
+  MdLastPage,
+  MdFirstPage,
+} from "react-icons/md";
 import { IconContext } from "react-icons";
 import { useTable, usePagination } from "react-table";
 import { COLUMNS } from "./COLUMNS";
 import { useMemo } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export const Table = ({ games }) => {
   const gamesData = useMemo(() => games, []);
@@ -16,10 +21,7 @@ export const Table = ({ games }) => {
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
-
-    // The rest of these things are super handy, too ;)
+    page,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -41,14 +43,14 @@ export const Table = ({ games }) => {
 
   return (
     <div className="md:col-span-3 lg:col-span-5">
-      <h2 className=" text-3xl  font-title text-orange-500 mb-4">My Games</h2>
+      <h2 className=" text-3xl  font-title text-orange-500 mb-4 bg-[#420039] rounded-md">Past Games</h2>
       {/* https://flowbite.com/docs/components/tables/ */}
       <div>
         <table
           {...getTableProps()}
-          className="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+          className="w-full text-sm text-left text-gray-500  border-collapse"
         >
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps} key={uuidv4()}>
                 {headerGroup.headers.map((column) => (
@@ -70,7 +72,7 @@ export const Table = ({ games }) => {
               return (
                 <tr
                   {...row.getRowProps}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700  hover:bg-gray-200"
+                  className="bg-white border-b  hover:bg-gray-200"
                   key={uuidv4()}
                 >
                   {row.cells.map((cell) => (
@@ -86,6 +88,21 @@ export const Table = ({ games }) => {
               );
             })}
           </tbody>
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps} key={uuidv4()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps}
+                    className="px-6 py-3"
+                    key={uuidv4()}
+                  >
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
         </table>
         <div className="pagination">
           <div className="flex justify-center mt-4 items-center">

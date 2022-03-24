@@ -7,26 +7,30 @@ import Footer from "../components/Footer";
 import Effects from "../components/Effects";
 import ProfileCard from "../components/ProfileCard";
 import NoGamesFound from "../components/NoGamesFound";
-const { Temporal, Intl, toTemporalInstant } = require('@js-temporal/polyfill');
+const { Temporal, Intl, toTemporalInstant } = require("@js-temporal/polyfill");
 const Profile = ({ response }) => {
   const { data: session, status } = useSession();
   // console.log(JSON.parse(response), session);
   const games = JSON.parse(response);
   // console.log(games);
-  console.log(Temporal.Now.zonedDateTimeISO().toLocaleString())
+  console.log(Temporal.Now.zonedDateTimeISO().toLocaleString());
 
   return (
-    <div className="container mx-auto text-center font-roboto">
-      <Nav />
-      <div className="md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6  gap-2 mt-8 auto-cols-max">
-        <ProfileCard games={games} />
-        {games !== 0 ? <Table games={games} /> : <NoGamesFound />}
+    <>
+      <div className="container mx-auto text-center font-roboto">
+        <Nav />
+        <div className="md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6  gap-2 mt-8 auto-cols-max">
+          <ProfileCard games={games} />
+          {games !== 0 ? <Table games={games} /> : <NoGamesFound />}
+        </div>
       </div>
-      <div className="mt-8">
-        <Effects />
-        <Footer />
+      <div className="container mx-auto">
+        <div className="">
+          <Effects />
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
